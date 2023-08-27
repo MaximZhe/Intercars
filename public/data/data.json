@@ -25,7 +25,8 @@
     },
     "price": 1698,
     "number of seats": 28,
-    "sale of seats": 5
+    "sale of seats": 5,
+    "transfer": 0
   },
   {
     "id": 2,
@@ -53,6 +54,7 @@
     },
     "price": 1698,
     "number of seats": 28,
-    "sale of seats": 5
+    "sale of seats": 5,
+    "transfer" : 1
   }
 ]
