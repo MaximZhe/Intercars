@@ -15,8 +15,9 @@ interface ItemRatesProps {
   sortedPrices: number[];
 }
 const ListRatesItem: FC<ItemRatesProps> = ({ data, sortedPrices }) => {
-  const [width, setWidth] = useState(WindowScreenUser())
-  const [spentClassBackground, setSpentClassBackground] = useState(SwitchClassImg(width, data.transfer));
+  const width = WindowScreenUser()
+
+  const spentClassBackground =SwitchClassImg(width, data.transfer);
 
   return (
     <div className={`list-item ${sortedPrices[0] === data.price ? 'list-item--best' : ''} `}>
