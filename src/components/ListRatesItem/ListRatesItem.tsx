@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import Button from '../UI/Button/Button';
 import arrow from '../../assets/icons/Arrow Icon.svg';
 

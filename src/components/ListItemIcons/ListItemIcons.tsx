@@ -1,4 +1,4 @@
-import React from 'react';
+
 import wifi from '../../assets/icons/Wi-Fi.svg';
 import air from '../../assets/icons/Air Cond.svg';
 import usb from '../../assets/icons/USB.svg';

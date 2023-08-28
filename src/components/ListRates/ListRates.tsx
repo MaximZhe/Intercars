@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import ListRatesItem from '../ListRatesItem/ListRatesItem';
 import './ListRates.scss';
 import { ITariffData } from '../../types/types';
