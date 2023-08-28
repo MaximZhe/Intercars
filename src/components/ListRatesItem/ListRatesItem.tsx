@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC} from 'react';
 import Button from '../UI/Button/Button';
 import arrow from '../../assets/icons/Arrow Icon.svg';
 
