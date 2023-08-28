@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5173/data/data.json');
+        const response = await axios.get('https://maximzhe.github.io/Intercars/data.json');
         const data = response.data;
         console.log(data);
         setTariffData(data);
