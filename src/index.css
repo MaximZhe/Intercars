@@ -82,7 +82,8 @@ img {
   vertical-align: top;
 }
 body{
-  background: #FFFFFF;
+  background: #F0F3F6;
+  font-family: 'Rubik', sans-serif;
   color: #2b394d;
 }
 .container{

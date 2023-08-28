@@ -1,99 +1,106 @@
-import React from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Button from '../UI/Button/Button';
-import wifi from '../../assets/icons/Wi-Fi.svg';
-import air from '../../assets/icons/Air Cond.svg';
-import usb from '../../assets/icons/USB.svg';
-import './ListRatesItem.scss'
+import arrow from '../../assets/icons/Arrow Icon.svg';
 
-import arrow from '../../assets/icons/Arrow Icon.svg'
+import './ListRatesItem.scss';
 
-const ListRatesItem = () => {
-    return (
-        <div className='list-item'>
-              <div className='list-item-offer--mobail'>
-                <p className='list-item-offer__company'>Intercars</p>
-                <div className='list-item-offer__best'>
-                  <p className='list-item-offer__text'>Лучшая цена</p>
-                </div>
-              </div>
-              <div className='list-item__wrapper'>
-                <div className='list-item-info'>
-                  <div className='list-item-info__top'>
-                    <div className='list-item__data text-left'>
-                      <p className='list-item__date'>20 АПР, чт</p>
-                      <div className='list-item__time'>21:45</div>
-                    </div>
-                    <div className='list-item-spent'>
-                      <p className='list-item-spent__time'>В пути: 33ч 15мин</p>
-                      <div className='list-item-spent__transfer'><span>1 </span>пересадка</div>
-                      <div className='list-item-spent__img' ></div>
-                    </div>
-                    <div className='list-item__data text-right'>
-                      <p className='list-item__date '>22 АПР, сб</p>
-                      <div className='list-item__time'>07:00</div>
-                    </div>
-                  </div>
-                  <>
-                    <div className='list-item-spent__img--mobail' ></div>
-                  </>
-                  <div className='list-item-info__bottom'>
-                    <div className='list-item__place'>
-                      <p className='list-item__city text-left'>Минск</p>
-                      <p className='list-item__adress text-left'>Центральный автовокзал, ул. Бобруйская, 6</p>
-                    </div>
-                    <div className='list-item-company'>
-                      <p className='list-item-company__title'>Перевозчик</p>
-                      <p className='list-item-company__name'>ECOLINES</p>
-                    </div>
-                    <div className='list-item__place'>
-                      <p className='list-item__city text-right'>Берлин</p>
-                      <p className='list-item__adress text-right'>Bus Station (ZOB) "Am Funkturm" on Masurenallee</p>
-                    </div>
-                  </div>
+import { WindowScreenUser } from '../../utils/windowScreen';
+import { SwitchClassImg } from '../../utils/classStyleTranfer';
 
-                </div>
-                <div className='list-item-details'>
-                  <button type='button' className='list-item-details__btn'>
-                    Детали маршрута
-                    <img src={arrow} alt='' />
-                  </button>
-                  <div className='list-item-icons'>
-                    <div className='list-item-icons__item'>
-                      <img src={wifi} alt=''/>
-                    </div>
-                    <div className='list-item-icons__item'>
-                      <img src={air} alt=''/>
-                    </div>
-                    <div className='list-item-icons__item'>
-                      <img src={usb} alt=''/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='list-item-order'>
-                <div className='list-item-offer'>
-                  <p className='list-item-offer__company'>Intercars</p>
-                  <div className='list-item-offer__best'>
-                    <p className='list-item-offer__text'>Лучшая цена</p>
-                  </div>
-                </div>
-                <div className='list-item-order__inner'>
-                  <p className='list-item-order__price'>1698 RUB</p>
-                  <div className='list-item-places--mobail'>
-                    <p className='list-item-places__free'>Осталось мест: 28 </p>
-                    <p className='list-item-places__stock'>Aкционных мест: 5 </p>
-                  </div>
-                </div>
-                <Button className='list-item-order__btn'>
-                  Выбрать билет
-                </Button>
-                <div className='list-item-places'>
-                  <p className='list-item-places__free'>Осталось мест: 28 </p>
-                  <p className='list-item-places__stock'>Aкционных мест: 5 </p>
-                </div>
-              </div>
+import { ITariffData } from '../../types/types';
+import ListItemIcons from '../ListItemIcons/ListItemIcons';
+
+interface ItemRatesProps {
+  data: ITariffData;
+  sortedPrices: number[];
+}
+const ListRatesItem: FC<ItemRatesProps> = ({ data, sortedPrices }) => {
+  const [width, setWidth] = useState(WindowScreenUser())
+  const [spentClassBackground, setSpentClassBackground] = useState(SwitchClassImg(width, data.transfer));
+
+
+  return (
+    <div className={`list-item ${sortedPrices[0] === data.price ? 'list-item--best' : ''} `}>
+      <div className='list-item-offer--mobail'>
+        <p className='list-item-offer__company'>Intercars</p>
+        {sortedPrices[0] === data.price ?
+          <div className='list-item-offer__best'>
+            <p className='list-item-offer__text'>Лучшая цена</p>
+          </div> : null
+        }
+      </div>
+      <div className='list-item__wrapper'>
+        <div className='list-item-info'>
+          <div className='list-item-info__top'>
+            <div className='list-item__data text-left'>
+              <p className='list-item__date'>20 АПР, чт</p>
+              <div className='list-item__time'>{data.time.start}</div>
             </div>
-    );
+            <div className='list-item-spent'>
+              <p className='list-item-spent__time'>В пути: {data['travel time'].hours}ч {data['travel time'].minutes}мин</p>
+              {data.transfer !== 0 ?
+                <div className='list-item-spent__transfer'>
+                  <span>{data.transfer} </span>пересадка</div> : null
+              }
+              <div className={`list-item-spent__img ${spentClassBackground}`} ></div>
+            </div>
+            <div className='list-item__data text-right'>
+              <p className='list-item__date '>22 АПР, сб</p>
+              <div className='list-item__time'>{data.time.finish}</div>
+            </div>
+          </div>
+          <>
+            <div className={`list-item-spent__img--mobail ${data.transfer !== 0 ? 'list-item-spent__img--mobail-transfer' : ''}`}></div>
+          </>
+          <div className='list-item-info__bottom'>
+            <div className='list-item__place'>
+              <p className='list-item__city text-left'>{data.city.start}</p>
+              <p className='list-item__adress text-left'>{data.station.start}</p>
+            </div>
+            <div className='list-item-company'>
+              <p className='list-item-company__title'>Перевозчик</p>
+              <p className='list-item-company__name'>{data.company}</p>
+            </div>
+            <div className='list-item__place'>
+              <p className='list-item__city text-right'>{data.city.finish}</p>
+              <p className='list-item__adress text-right'>{data.station.finish}</p>
+            </div>
+          </div>
+        </div>
+        <div className='list-item-details'>
+          <button type='button' className='list-item-details__btn'>
+            Детали маршрута
+            <img src={arrow} alt='' />
+          </button>
+          <ListItemIcons/>
+        </div>
+      </div>
+      <div className='list-item-order'>
+        <div className='list-item-offer'>
+          <p className='list-item-offer__company'>Intercars</p>
+          {sortedPrices[0] === data.price ?
+            <div className='list-item-offer__best'>
+              <p className='list-item-offer__text'>Лучшая цена</p>
+            </div> : null
+          }
+        </div>
+        <div className='list-item-order__inner'>
+          <p className='list-item-order__price'>{data.price} RUB</p>
+          <div className='list-item-places--mobail'>
+            <p className='list-item-places__free'>Осталось мест: {data['number of seats']} </p>
+            <p className='list-item-places__stock'>Aкционных мест: {data['sale of seats']}</p>
+          </div>
+        </div>
+        <Button type='button' className='list-item-order__btn'>
+          Выбрать билет
+        </Button>
+        <div className='list-item-places'>
+          <p className='list-item-places__free'>Осталось мест: {data['number of seats']} </p>
+          <p className='list-item-places__stock'>Aкционных мест: {data['sale of seats']} </p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ListRatesItem;

@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ListRatesItem from '../ListRatesItem/ListRatesItem';
 import './ListRates.scss';
+import { ITariffData } from '../../types/types';
 
-const ListRates = () => {
+interface ListRatesProps {
+    datas: ITariffData[];
+}
+const ListRates: FC<ListRatesProps> = ({ datas }) => {
+    const sortedPrices = datas.map(item => item.price).sort((a, b) => a - b);
     return (
         <div className='list'>
-            <ListRatesItem />
+            {datas.map((data) => (
+                <ListRatesItem key={data.id} data={data} sortedPrices={sortedPrices}/>
+            ))}
         </div>
     );
 };

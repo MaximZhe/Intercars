@@ -19,9 +19,9 @@
     },
     "company": "ECOLINES",
     "comfort": {
-      "internet": "true",
-      "film": "true",
-      "charging the device": "true"
+      "internet": true,
+      "film": true,
+      "charging the device": true
     },
     "price": 1698,
     "number of seats": 28,
@@ -36,7 +36,7 @@
     },
     "travel time": {
       "hours": 33,
-      "minutes": 10
+      "minutes": 50
     },
     "city": {
       "start": "Минск",
@@ -48,11 +48,11 @@
     },
     "company": "ECOLINES",
     "comfort": {
-      "internet": "true",
-      "film": "true",
-      "charging the device": "true"
+      "internet": true,
+      "film": true,
+      "charging the device": true
     },
-    "price": 1698,
+    "price": 1700,
     "number of seats": 28,
     "sale of seats": 5,
     "transfer" : 1
