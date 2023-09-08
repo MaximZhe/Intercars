@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://raw.githubusercontent.com/MaximZhe/Intercars/main/data.json');
+        const response = await axios.get('http://api.intercars-tickets.com/api/v1/GetByName?name=Minsk');
         const data = response.data;
         console.log(data);
         setTariffData(data);
